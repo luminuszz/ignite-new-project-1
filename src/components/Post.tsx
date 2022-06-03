@@ -1,6 +1,7 @@
-import { Box, Button, Flex, HStack, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Textarea, VStack } from "@chakra-ui/react";
 import Avatar from "@components/Avatar";
-import { useRef, useState } from "react";
+import Comment from "@components/Comment";
+import { useState } from "react";
 
 const Divider = () => <Box height="1px" bg="gray.700" w="100%" />;
 
@@ -13,7 +14,7 @@ const Post = () => {
     <Box bg="gray.800" maxW="832px" p="40px" borderRadius="8px">
       <Flex justifyContent="space-between" alignItems="center">
         <Flex justifyContent="center" alignItems="flex-end">
-          <Avatar isUp={false} imageUrl="https://avatars.githubusercontent.com/u/48535259?v=4" />
+          <Avatar imageUrl="https://avatars.githubusercontent.com/u/48535259?v=4" />
 
           <VStack ml="16px" alignItems="flex-start" spacing="-5px">
             <Text as="strong" color="gray.200" mt="1rem">
@@ -60,6 +61,15 @@ const Post = () => {
           </Button>
         )}
       </VStack>
+
+      <Box mt="24px">
+        <VStack spacing="24px" />
+        <Comment />
+        <Comment />
+        <Comment />
+        <Comment />
+        <Comment />
+      </Box>
     </Box>
   );
 };

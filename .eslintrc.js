@@ -32,5 +32,6 @@ module.exports = {
     "no-param-reassign": "off",
     "react/function-component-definition": "off",
     "react-hooks/exhaustive-deps": "warn",
+    "react/require-default-props": "off",
   },
 };

@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, VStack } from "@chakra-ui/react";
 import Header from "@components/Header";
 import Post from "@components/Post";
 import Sidebar from "@components/Sidebar";
@@ -21,7 +21,11 @@ const App = () => (
       <Sidebar />
 
       <GridItem as="main">
-        <Post />
+        <VStack spacing="32px">
+          <Post />
+          <Post />
+          <Post />
+        </VStack>
       </GridItem>
     </Grid>
   </Box>

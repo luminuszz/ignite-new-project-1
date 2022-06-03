@@ -3,10 +3,11 @@ import { FC } from "react";
 
 type Props = {
   imageUrl: string;
-  isUp: boolean;
+
+  isUp?: boolean;
 };
 
-const Avatar: FC<Props> = ({ imageUrl, isUp }) => (
+const Avatar: FC<Props> = ({ imageUrl, isUp = false }) => (
   <Image
     boxSize="initial"
     borderRadius="8px"
