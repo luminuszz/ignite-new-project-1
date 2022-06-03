@@ -6,13 +6,16 @@ const theme = {
       "900": "#121214",
       "800": "#202024",
       "700": "#323238",
+      "600": "#8D8D99",
       "500": "#7C7C8A", // gray4 placeholder)
       "300": "#C4C4CC",
+      "200": "#E1E1E6",
     },
 
     green: {
       "400": "#00B37E",
       "500": "#00B37E", // green-light
+      "600": "#00875F",
     },
 
     red: {
@@ -25,17 +28,15 @@ const theme = {
     heading: "Roboto",
   },
 
-  fontSizes: {
-    md: "16px",
-    sm: "14px",
-  },
-
   styles: {
     global: {
       "html,body": {
         backgroundColor: "#121214",
         fontFamily: "Roboto, sans-serif",
         lineHeight: "160%",
+        boxSizing: "border-box",
+        "-webkit-font-smoothing": "antialiased",
+        color: "white",
       },
     },
   },
@@ -52,7 +53,10 @@ const theme = {
           borderRadius: "8px",
           lineHeight: "16px",
           _hover: {
-            backgroundColor: "gray.400",
+            backgroundColor: "green.400",
+          },
+          _active: {
+            backgroundColor: "green.400",
           },
         },
 
@@ -62,6 +66,10 @@ const theme = {
           fontWeight: 700,
           _hover: {
             color: "white",
+            backgroundColor: "green.600",
+          },
+          _active: {
+            backgroundColor: "green.700",
           },
         },
       },
