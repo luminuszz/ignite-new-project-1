@@ -36,7 +36,7 @@ const theme = {
         fontFamily: "Roboto, sans-serif",
         lineHeight: "160%",
         boxSizing: "border-box",
-        "-webkit-font-smoothing": "antialiased",
+        WebkitFontSmoothing: "antialiased",
         color: "white",
       },
     },

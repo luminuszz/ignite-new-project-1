@@ -1,19 +1,51 @@
 import { Box, Button, Flex, Text, Textarea, VStack } from "@chakra-ui/react";
 import Avatar from "@components/Avatar";
 import Comment from "@components/Comment";
-import { useState } from "react";
+import React, { useState } from "react";
+
+import { makeComment, selectByPostId } from "@app/features/commentsSlice";
+import { useAppDispatch, useAppSelector } from "@app/hooks/redux";
 
 const Divider = () => <Box height="1px" bg="gray.700" w="100%" />;
 
-const Post = () => {
+type Props = {
+  id: number;
+  content: string;
+};
+
+const Post: React.FC<Props> = ({ id, content }) => {
   const [textArea, setTextArea] = useState("");
+  const [error, setError] = useState("");
+  const dispatch = useAppDispatch();
+
+  const comments = useAppSelector((state) => selectByPostId(state, id));
 
   const isEmpty = textArea.trim().length === 0;
 
+  const handlePublishPost = () => {
+    setError("");
+
+    if (isEmpty) {
+      setError("O post não pode estar vazio");
+      return;
+    }
+
+    dispatch(
+      makeComment({
+        likes: 0,
+        postId: id,
+        content: textArea,
+        id: Math.random(),
+      })
+    );
+
+    setTextArea("");
+  };
+
   return (
-    <Box bg="gray.800" maxW="832px" p="40px" borderRadius="8px">
+    <Box bg="gray.800" maxW="832px" p="40px" borderRadius="8px" as="article" w="100%">
       <Flex justifyContent="space-between" alignItems="center">
-        <Flex justifyContent="center" alignItems="flex-end">
+        <Flex justifyContent="center" alignItems="flex-end" as="header">
           <Avatar imageUrl="https://avatars.githubusercontent.com/u/48535259?v=4" />
 
           <VStack ml="16px" alignItems="flex-start" spacing="-5px">
@@ -28,17 +60,14 @@ const Post = () => {
           <Box mt="30px">{/* Post content */}</Box>
         </Flex>
 
-        <Text color="gray.600" fontSize="14px">
+        <Text title="Publicado em 11 de maio de 20222" color="gray.600" fontSize="14px" as="time">
           Publicado há 1 hora
         </Text>
       </Flex>
 
       <Box />
 
-      <Box my="24px">
-        Fala galeraa 👋 Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da
-        Rocketseat. O nome do projeto é DoctorCare 🚀 👉 jane.design/doctorcare #novoprojeto #nlw #rocketseat
-      </Box>
+      <Box my="24px">{content}</Box>
 
       <Divider />
 
@@ -47,6 +76,8 @@ const Post = () => {
           Deixe seu feedback
         </Text>
         <Textarea
+          isRequired
+          isInvalid={!!error}
           value={textArea}
           onChange={(e) => setTextArea(e.target.value)}
           variant="green"
@@ -56,7 +87,7 @@ const Post = () => {
         />
 
         {!isEmpty && (
-          <Button w="108px" h="49px" variant="solid">
+          <Button w="108px" h="49px" variant="solid" onClick={handlePublishPost}>
             Publicar
           </Button>
         )}
@@ -64,11 +95,10 @@ const Post = () => {
 
       <Box mt="24px">
         <VStack spacing="24px" />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+
+        {comments.map((comment) => (
+          <Comment key={comment.id} comment={comment} />
+        ))}
       </Box>
     </Box>
   );
